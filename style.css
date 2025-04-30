@@ -364,3 +364,10 @@ body {
   height: 10px;
   margin-right: 4px;
 }
+
+
+.axis-label {
+  fill: #fff;          /* white text */
+  font-size: 12px;
+  font-weight: 600;
+}

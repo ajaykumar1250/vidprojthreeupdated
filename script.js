@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const svgB = d3.select('#bubbleSvg');
         svgB.selectAll('*').remove();
       
-        const marginB = { top: 20, right: 20, bottom: 40, left: 40 };
+        const marginB = { top: 60, right: 20, bottom: 50, left: 100 };
         const w = parseInt(svgB.style('width')) - marginB.left - marginB.right;
         const h = parseInt(svgB.style('height')) - marginB.top - marginB.bottom;
         const g = svgB.append('g').attr('transform', `translate(${marginB.left},${marginB.top})`);
@@ -304,7 +304,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const color = d3.scaleOrdinal(d3.schemeCategory10).domain(topN.map(d => d.speaker));
       
         g.append('g').attr('transform', `translate(0,${h})`).call(d3.axisBottom(x));
+        // X‐axis label
+     g.append('text').attr('class', 'axis-label').attr('text-anchor', 'middle').attr('x', w / 2)
+       .attr('y', h + marginB.bottom - 6)   // tweak “-6” as needed
+       .text('Number of Episodes');
+
         g.append('g').call(d3.axisLeft(y));
+        // Y‐axis label
+     g.append('text').attr('class', 'axis-label').attr('text-anchor', 'middle').attr('transform', `rotate(-90)`)
+       .attr('x', -h / 2)
+       .attr('y', -marginB.left + 14)      // tweak “+14” as needed
+       .text('Total Lines Spoken');
       
         const circles = g.selectAll('circle').data(topN, d => d.speaker).join('circle')
           .attr('fill', d => color(d.speaker))
